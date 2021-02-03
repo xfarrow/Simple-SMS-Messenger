@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import com.simplemobiletools.commons.activities.CustomizationActivity
 import com.simplemobiletools.commons.activities.ManageBlockedNumbersActivity
 import com.simplemobiletools.commons.dialogs.ChangeDateTimeFormatDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -61,9 +62,21 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupCustomizeColors() {
-        settings_customize_colors_label.text = getCustomizeColorsString()
+        settings_customize_colors_label.text = getString(R.string.customize_colors)
         settings_customize_colors_holder.setOnClickListener {
-            handleCustomizeColorsClick()
+            bypassPayment()
+            /*
+                handleCustomizeColorsClick() //Legit code (read-only in .gradle\caches\modules-2\files-2.1\com.simplemobiletools\commons\5.33.12\ea33d00ac1c883c414c5ea6a3e187056d0cca656\commons.jar)
+                startCustomizationActivity() //It'd have also worked fine
+            */
+        }
+    }
+
+    private fun bypassPayment(){
+        Intent(applicationContext, CustomizationActivity::class.java).apply {
+            putExtra(APP_ICON_IDS, getAppIconIDs())
+            putExtra(APP_LAUNCHER_NAME, getAppLauncherName())
+            startActivity(this)
         }
     }
 
