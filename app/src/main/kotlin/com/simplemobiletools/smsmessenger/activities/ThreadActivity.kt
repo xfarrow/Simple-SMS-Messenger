@@ -51,7 +51,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class ThreadActivity : SimpleActivity() {
-    private val MIN_DATE_TIME_DIFF_SECS = 300
+    private val MIN_DATE_TIME_DIFF_SECS = 59
     private val PICK_ATTACHMENT_INTENT = 1
 
     private var threadId = 0L
@@ -182,7 +182,6 @@ class ThreadActivity : SimpleActivity() {
         if (participants.isEmpty()) {
             return true
         }
-
         when (item.itemId) {
             R.id.block_number -> blockNumber()
             R.id.delete -> askConfirmDelete()
@@ -518,6 +517,7 @@ class ThreadActivity : SimpleActivity() {
             // do not show the date/time above every message, only if the difference between the 2 messages is at least MIN_DATE_TIME_DIFF_SECS
             if (message.date - prevDateTime > MIN_DATE_TIME_DIFF_SECS) {
                 val simCardID = subscriptionIdToSimId[message.subscriptionId] ?: "?"
+
                 items.add(ThreadDateTime(message.date, simCardID))
                 prevDateTime = message.date
             }

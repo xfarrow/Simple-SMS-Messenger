@@ -24,4 +24,8 @@
         android:id="@+id/cab_select_all"
         android:title="@string/select_all"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/cab_info"
+        android:title="Info"
+        app:showAsAction="never" />
 </menu>

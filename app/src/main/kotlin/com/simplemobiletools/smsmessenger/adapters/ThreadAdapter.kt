@@ -1,10 +1,12 @@
 package com.simplemobiletools.smsmessenger.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.telephony.SubscriptionManager
+import android.text.format.DateFormat
 import android.util.TypedValue
 import android.view.Menu
 import android.view.View
@@ -41,6 +43,12 @@ import kotlinx.android.synthetic.main.item_thread_date_time.view.*
 import kotlinx.android.synthetic.main.item_thread_error.view.*
 import kotlinx.android.synthetic.main.item_thread_sending.view.*
 import kotlinx.android.synthetic.main.item_thread_success.view.*
+import java.text.DateFormat.getDateInstance
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.ceil
+import kotlin.time.days
 
 class ThreadAdapter(activity: SimpleActivity, var messages: ArrayList<ThreadItem>, recyclerView: MyRecyclerView, fastScroller: FastScroller,
                     itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
@@ -62,6 +70,7 @@ class ThreadAdapter(activity: SimpleActivity, var messages: ArrayList<ThreadItem
             findItem(R.id.cab_copy_to_clipboard).isVisible = isOneItemSelected
             findItem(R.id.cab_share).isVisible = isOneItemSelected
             findItem(R.id.cab_select_text).isVisible = isOneItemSelected
+            findItem(R.id.cab_info).isVisible = isOneItemSelected
         }
     }
 
@@ -76,6 +85,7 @@ class ThreadAdapter(activity: SimpleActivity, var messages: ArrayList<ThreadItem
             R.id.cab_select_text -> selectText()
             R.id.cab_delete -> askConfirmDelete()
             R.id.cab_select_all -> selectAll()
+            R.id.cab_info -> showInfo()
         }
     }
 
@@ -147,6 +157,20 @@ class ThreadAdapter(activity: SimpleActivity, var messages: ArrayList<ThreadItem
         val firstItem = getSelectedItems().firstOrNull() as? Message ?: return
         if (firstItem.body.trim().isNotEmpty()) {
             SelectTextDialog(activity, firstItem.body)
+        }
+    }
+
+    private fun showInfo(){
+        val firstItem = getSelectedItems().firstOrNull() as? Message ?: return
+
+        if (firstItem.body.trim().isNotEmpty()) {
+            val currentDate = Date (firstItem.date*1000L)
+            val dateFormat = SimpleDateFormat("YYYY-MM-dd HH:mm:ss")
+            val date = dateFormat.format(currentDate);
+
+            val number_of_characters = firstItem.body.length.toString() + " characters "+"(" + ceil(firstItem.body.length/160.0).toInt() + " SMS)"
+            SelectTextDialog(activity,  date+"\n\n"+number_of_characters);
+            //SelectTextDialog(activity,  firstItem.body.length.toString() + " ( " + ceil(firstItem.body.length/160.0)+"message(s) )");
         }
     }
 
