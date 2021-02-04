@@ -1,4 +1,12 @@
 # Simple SMS Messenger
+
+## Fork resume
+* The received message bubble is now wider
+* The exact hour you sent or received a message is now visible
+* An "Info" menu has been added for every message
+* The PRO version has been unlocked (The GNU General Public License v3.0 legally allows a person to modify any part of the code and redistribute the work with the same license. However, It'd be better if you pay the original author (simplemobiletools) for the functionalities they intended to be payed. You can accomplish that either by donating at https://www.simplemobiletools.com/donate/ or buying a "thank you" app at https://play.google.com/store/apps/details?id=com.simplemobiletools.thankyou)
+### End fork resume
+<br><br>
 <img alt="Logo" src="fastlane/metadata/android/en-US/images/icon.png" width="120" />
 
 A great way to stay in touch with your relatives, by sending both SMS and MMS messages. The app properly handles group messaging too, just like blocking numbers from Android 7+.
