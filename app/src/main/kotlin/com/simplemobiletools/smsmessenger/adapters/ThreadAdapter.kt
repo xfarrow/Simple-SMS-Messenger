@@ -44,6 +44,7 @@ import kotlinx.android.synthetic.main.item_thread_error.view.*
 import kotlinx.android.synthetic.main.item_thread_sending.view.*
 import kotlinx.android.synthetic.main.item_thread_success.view.*
 import java.text.DateFormat.getDateInstance
+import java.text.DateFormat.getDateTimeInstance
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -165,12 +166,12 @@ class ThreadAdapter(activity: SimpleActivity, var messages: ArrayList<ThreadItem
 
         if (firstItem.body.trim().isNotEmpty()) {
             val currentDate = Date (firstItem.date*1000L)
-            val dateFormat = SimpleDateFormat("YYYY-MM-dd HH:mm:ss")
+            val dateFormat = getDateTimeInstance()
             val date = dateFormat.format(currentDate);
 
-            val number_of_characters = firstItem.body.length.toString() + " characters "+"(" + ceil(firstItem.body.length/160.0).toInt() + " SMS)"
-            SelectTextDialog(activity,  date+"\n\n"+number_of_characters);
-            //SelectTextDialog(activity,  firstItem.body.length.toString() + " ( " + ceil(firstItem.body.length/160.0)+"message(s) )");
+            val numberOfCharacters = firstItem.body.length.toString() + " characters"
+
+            SelectTextDialog(activity,  date+"\n\n"+numberOfCharacters);
         }
     }
 
